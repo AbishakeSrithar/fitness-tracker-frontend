@@ -1,3 +1,10 @@
-#testing {
-    background-color: rgb(255, 94, 0);
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid black;
+  padding: 15px; /* Adds 15px padding inside each cell */
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
