@@ -1,3 +1,9 @@
+// type JSONValue =
+//     | string
+//     | number
+//     | boolean
+//     | { [x: string]: JSONValue }
+//     | Array<JSONValue>;
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,9 +40,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var DateTypes;
+(function (DateTypes) {
+    DateTypes[DateTypes["Workout"] = 0] = "Workout";
+    DateTypes[DateTypes["Entry"] = 1] = "Entry";
+    DateTypes[DateTypes["Exercise"] = 2] = "Exercise";
+})(DateTypes || (DateTypes = {}));
 document.getElementById("getAllEntriesButton").onclick = getAllEntries;
-// document.getElementById("getAllExercisesButton").onclick = getAllExercises
-// document.getElementById("getAllWorkoutsButton").onclick = getAllWorkouts
+document.getElementById("getAllExercisesButton").onclick = getAllExercises;
+document.getElementById("getAllWorkoutsButton").onclick = getAllWorkouts;
 function getAllEntries() {
     fetch("http://localhost:8080/api/entry/get")
         .then(function (response) {
@@ -53,25 +65,47 @@ function getAllEntries() {
             });
         });
     }).then(function (entry) {
-        generateTable(entry, "Entry");
+        generateTable(entry, DateTypes.Entry);
     });
 }
-// function getAllExercises() {
-//   fetch("http://localhost:8080/api/exercise/get")
-//   .then(function(response) {
-//     return response.json();
-//   }).then(function(data) {
-//     generateTable(data, "Exercise")
-//   });
-// }
-// function getAllWorkouts() {
-//   fetch("http://localhost:8080/api/workout/get")
-//   .then(function(response) {
-//     return response.json();
-//   }).then(function(data) {
-//     generateTable(data, "Workout")
-//   });
-// }
+function getAllExercises() {
+    fetch("http://localhost:8080/api/exercise/get")
+        .then(function (response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var payload, exercise;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, response.json()];
+                    case 1:
+                        payload = _a.sent();
+                        exercise = payload.payload;
+                        return [2 /*return*/, exercise];
+                }
+            });
+        });
+    }).then(function (data) {
+        generateTable(data, DateTypes.Exercise);
+    });
+}
+function getAllWorkouts() {
+    fetch("http://localhost:8080/api/workout/get")
+        .then(function (response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var payload, entry;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, response.json()];
+                    case 1:
+                        payload = _a.sent();
+                        entry = payload.payload;
+                        return [2 /*return*/, entry];
+                }
+            });
+        });
+    }).then(function (data) {
+        generateTable(data, DateTypes.Workout);
+    });
+}
 function generateTable(data, dataType) {
     var prevTable = document.querySelector("table");
     if (prevTable) {
@@ -87,10 +121,10 @@ function generateTable(data, dataType) {
             tblBody.appendChild(row);
         }
     }
-    // else {
-    //   const row = generateRow(data, dataType)
-    //   tblBody.appendChild(row);
-    // }
+    else {
+        var row = generateRow(data, dataType);
+        tblBody.appendChild(row);
+    }
     // put the <tbody> in the <table>
     tbl.appendChild(tblBody);
     // appends <table> into <body>
@@ -98,72 +132,72 @@ function generateTable(data, dataType) {
     // sets the border attribute of tbl to '2'
     tbl.setAttribute("border", "2");
 }
-function generateRow(entry, dataType) {
+function generateRow(input, dataType) {
     switch (dataType) {
-        // case "Workout":
-        //   return generateWorkoutRow(entry)
-        // case "Exercise":
-        //   return generateExerciseRow(entry)
-        case "Entry":
-            return generateEntryRow(entry);
+        case DateTypes.Workout:
+            return generateWorkoutRow(input);
+        case DateTypes.Exercise:
+            return generateExerciseRow(input);
+        case DateTypes.Entry:
+            return generateEntryRow(input);
     }
 }
-// function generateExerciseRow(payload) {
-//   const row = document.createElement("tr");
-//   const cell1 = document.createElement("td");
-//   const cell1Text = document.createTextNode(`id: ${payload.id}`);
-//   cell1.appendChild(cell1Text);
-//   row.appendChild(cell1);
-//   const cell2 = document.createElement("td");
-//   const cell2Text = document.createTextNode(`name: ${payload.name}`);
-//   cell2.appendChild(cell2Text);
-//   row.appendChild(cell2);
-//   const cell3 = document.createElement("td");
-//   const cell3Text = document.createTextNode(`description: ${payload.description}`);
-//   cell3.appendChild(cell3Text);
-//   row.appendChild(cell3);
-//   return row
-// }
-// function generateWorkoutRow(payload) {
-//   const row = document.createElement("tr");
-//   const cell1 = document.createElement("td");
-//   const cell1Text = document.createTextNode(`id: ${payload.id}`);
-//   cell1.appendChild(cell1Text);
-//   row.appendChild(cell1);
-//   const cell2 = document.createElement("td");
-//   const cell2Text = document.createTextNode(`name: ${payload.name}`);
-//   cell2.appendChild(cell2Text);
-//   row.appendChild(cell2);
-//   const cell3 = document.createElement("td");
-//   const cell3Text = document.createTextNode(`date: ${payload.date}`);
-//   cell3.appendChild(cell3Text);
-//   row.appendChild(cell3);
-//   return row
-// }
-function generateEntryRow(payload) {
+function generateExerciseRow(input) {
     var row = document.createElement("tr");
     var cell1 = document.createElement("td");
-    var cell1Text = document.createTextNode("id: ".concat(payload.id));
+    var cell1Text = document.createTextNode("id: ".concat(input.id));
     cell1.appendChild(cell1Text);
     row.appendChild(cell1);
     var cell2 = document.createElement("td");
-    var cell2Text = document.createTextNode("workoutId: ".concat(payload.workoutId));
+    var cell2Text = document.createTextNode("name: ".concat(input.name));
     cell2.appendChild(cell2Text);
     row.appendChild(cell2);
     var cell3 = document.createElement("td");
-    var cell3Text = document.createTextNode("exerciseId: ".concat(payload.exerciseId));
+    var cell3Text = document.createTextNode("description: ".concat(input.description));
+    cell3.appendChild(cell3Text);
+    row.appendChild(cell3);
+    return row;
+}
+function generateWorkoutRow(input) {
+    var row = document.createElement("tr");
+    var cell1 = document.createElement("td");
+    var cell1Text = document.createTextNode("id: ".concat(input.id));
+    cell1.appendChild(cell1Text);
+    row.appendChild(cell1);
+    var cell2 = document.createElement("td");
+    var cell2Text = document.createTextNode("name: ".concat(input.name));
+    cell2.appendChild(cell2Text);
+    row.appendChild(cell2);
+    var cell3 = document.createElement("td");
+    var cell3Text = document.createTextNode("date: ".concat(input.date));
+    cell3.appendChild(cell3Text);
+    row.appendChild(cell3);
+    return row;
+}
+function generateEntryRow(input) {
+    var row = document.createElement("tr");
+    var cell1 = document.createElement("td");
+    var cell1Text = document.createTextNode("id: ".concat(input.id));
+    cell1.appendChild(cell1Text);
+    row.appendChild(cell1);
+    var cell2 = document.createElement("td");
+    var cell2Text = document.createTextNode("workoutId: ".concat(input.workoutId));
+    cell2.appendChild(cell2Text);
+    row.appendChild(cell2);
+    var cell3 = document.createElement("td");
+    var cell3Text = document.createTextNode("exerciseId: ".concat(input.exerciseId));
     cell3.appendChild(cell3Text);
     row.appendChild(cell3);
     var cell4 = document.createElement("td");
-    var cell4Text = document.createTextNode("weight: ".concat(payload.weight));
+    var cell4Text = document.createTextNode("weight: ".concat(input.weight));
     cell4.appendChild(cell4Text);
     row.appendChild(cell4);
     var cell5 = document.createElement("td");
-    var cell5Text = document.createTextNode("sets: ".concat(payload.sets));
+    var cell5Text = document.createTextNode("sets: ".concat(input.sets));
     cell5.appendChild(cell5Text);
     row.appendChild(cell5);
     var cell6 = document.createElement("td");
-    var cell6Text = document.createTextNode("reps: ".concat(payload.reps));
+    var cell6Text = document.createTextNode("reps: ".concat(input.reps));
     cell6.appendChild(cell6Text);
     row.appendChild(cell6);
     return row;
