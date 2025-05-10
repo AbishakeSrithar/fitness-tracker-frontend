@@ -1,23 +1,15 @@
 {
   "name": "fitness-tracker-frontend",
-  "version": "1.0.0",
-  "description": "Fitness Tracker Frontend",
-  "homepage": "https://github.com/AbishakeSrithar/fitness-tracker-frontend#readme",
-  "bugs": {
-    "url": "https://github.com/AbishakeSrithar/fitness-tracker-frontend/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AbishakeSrithar/fitness-tracker-frontend.git"
-  },
-  "license": "ISC",
-  "author": "Abishake",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "main": "index.html",
   "scripts": {
-    "test": "test"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5"
   }
 }
