@@ -1,5 +1,5 @@
-import type { Entry } from "../models/entry";
-import { generateRow } from "../utilities/tableUtility";
+import type { Entry } from "../../models/entry";
+import { generateRow } from "../../utilities/tableUtility";
 
 export function getAllEntries() {
   fetch("http://localhost:8080/api/entry/get")
@@ -47,14 +47,7 @@ function generateEntryTable(data: Entry[]) {
 
   // put the <tbody> in the <table>
   tbl.appendChild(tblBody);
-  // appends <table> into <body>
-  document.body.appendChild(tbl);
-}
-
-export function sum(a: number, b: number): number {
-  return a + b
-}
-
-export const exportedForTesting = {
-  generateEntryTable
+  // appends <table> before div we're using as a divider
+  const div = document.getElementById("getAllOutputEnd");
+  document.body.insertBefore(tbl, div);
 }

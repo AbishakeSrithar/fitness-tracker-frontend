@@ -1,5 +1,5 @@
-import type { Workout } from "../models/workout";
-import { generateRow } from "../utilities/tableUtility";
+import type { Workout } from "../../models/workout";
+import { generateRow } from "../../utilities/tableUtility";
 
 export function getAllWorkouts() {
   fetch("http://localhost:8080/api/workout/get")
@@ -37,6 +37,7 @@ function generateWorkoutTable(data: Workout[]) {
 
   // put the <tbody> in the <table>
   tbl.appendChild(tblBody);
-  // appends <table> into <body>
-  document.body.appendChild(tbl);
+  // appends <table> before div we're using as a divider
+  const div = document.getElementById("getAllOutputEnd");
+  document.body.insertBefore(tbl, div);
 }
