@@ -21,7 +21,8 @@ table {
   margin-top: 15px;
 }
 
-th, td {
+th,
+td {
   border: 1px solid white;
   padding: 15px; /* Adds 15px padding inside each cell */
   text-align: center;
@@ -35,7 +36,6 @@ h1 {
 }
 
 p {
-
 }
 
 button {
