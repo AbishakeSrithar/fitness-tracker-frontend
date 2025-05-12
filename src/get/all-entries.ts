@@ -50,3 +50,11 @@ function generateEntryTable(data: Entry[]) {
   // appends <table> into <body>
   document.body.appendChild(tbl);
 }
+
+export function sum(a: number, b: number): number {
+  return a + b
+}
+
+export const exportedForTesting = {
+  generateEntryTable
+}
