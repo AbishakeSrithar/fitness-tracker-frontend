@@ -3,10 +3,14 @@ import { getAllEntries } from "./get/all/all-entries";
 import { getAllExercises } from "./get/all/all-exercises";
 import { getAllWorkouts } from "./get/all/all-workouts";
 
-import { getEntryById } from "./get/byId/getEntryById";
+import { addEventListenerForEntryById } from "./get/byId/getEntryById";
+import { addEventListenerForExerciseById } from "./get/byId/getExerciseById";
+import { addEventListenerForWorkoutById } from "./get/byId/getWorkoutById";
 
 document.getElementById("getAllEntriesButton")!.onclick = getAllEntries;
 document.getElementById("getAllExercisesButton")!.onclick = getAllExercises;
 document.getElementById("getAllWorkoutsButton")!.onclick = getAllWorkouts;
 
-document.getElementById("getEntryByIdButton")!.onclick = getEntryById;
+addEventListenerForEntryById()
+addEventListenerForExerciseById()
+addEventListenerForWorkoutById()
