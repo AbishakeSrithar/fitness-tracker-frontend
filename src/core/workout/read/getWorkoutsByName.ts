@@ -1,7 +1,7 @@
 import type { Workout } from "../../../models/workout";
 import { generateWorkoutTable } from "../workoutUtils";
 
-export function addEventListenerForWorkoutsByName() {
+export function addEventListenerForGetWorkoutsByName() {
   document.addEventListener("DOMContentLoaded", () => {
     const button = document.getElementById("getWorkoutsByNameButton") as HTMLButtonElement;
     const input = document.getElementById("getWorkoutsByNameInput") as HTMLInputElement;
@@ -18,7 +18,7 @@ export function addEventListenerForWorkoutsByName() {
 }
 
 function getWorkoutsByName(input: string) {;  
-  fetch(`http://localhost:8080/api/workout/get/byName?name=${input}`)
+  fetch(`${import.meta.env.VITE_BASE_API_URL}/workout/get/byName?name=${input}`)
     .then(async function (response) {
       let payload = await response.json();
       let workout = payload.payload as Array<Workout>;

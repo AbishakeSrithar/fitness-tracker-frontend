@@ -2,7 +2,7 @@ import type { Entry } from "../../../models/entry";
 import { generateEntryTable } from "../entryUtils";
 
 export function getAllEntries() {
-  fetch("http://localhost:8080/api/entry/get")
+  fetch(`${import.meta.env.VITE_BASE_API_URL}/entry/get`)
     .then(async function (response) {
       let payload = await response.json();
       let entry = payload.payload as Array<Entry>;

@@ -1,7 +1,7 @@
 import type { Entry } from "../../../models/entry";
 import { generateEntryTable } from "../entryUtils";
 
-export function addEventListenerForEntryByWorkoutId() {
+export function addEventListenerForGetEntryByWorkoutId() {
   document.addEventListener("DOMContentLoaded", () => {
     const button = document.getElementById("getEntryByWorkoutIdButton") as HTMLButtonElement;
     const input = document.getElementById("getEntryByWorkoutIdInput") as HTMLInputElement;
@@ -18,7 +18,7 @@ export function addEventListenerForEntryByWorkoutId() {
 }
 
 function getEntryByWorkoutId(input: number) {;
-  fetch(`http://localhost:8080/api/entry/get/byWorkoutId?workoutId=${input}`)
+  fetch(`${import.meta.env.VITE_BASE_API_URL}/entry/get/byWorkoutId?workoutId=${input}`)
     .then(async function (response) {
       let payload = await response.json();      
       let entry = payload.payload as Array<Entry>;

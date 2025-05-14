@@ -1,7 +1,7 @@
 import type { Exercise } from "../../../models/exercise";
 import { generateExerciseTable } from "../exerciseUtils";
 
-export function addEventListenerForExerciseById() {
+export function addEventListenerForGetExerciseById() {
   document.addEventListener("DOMContentLoaded", () => {
     const button = document.getElementById("getExerciseByIdButton") as HTMLButtonElement;
     const input = document.getElementById("getExerciseByIdInput") as HTMLInputElement;
@@ -18,7 +18,7 @@ export function addEventListenerForExerciseById() {
 }
 
 function getExerciseById(input: number) {;
-  fetch(`http://localhost:8080/api/exercise/get/byId?id=${input}`)
+  fetch(`${import.meta.env.VITE_BASE_API_URL}/exercise/get/byId?id=${input}`)
     .then(async function (response) {
       let payload = await response.json();      
       let exercise = payload.payload as Array<Exercise>;
