@@ -1,15 +1,15 @@
 import type { Workout } from "../../models/workout";
 import { generateWorkoutTable } from "./workoutUtils";
 
-export function addEventListenerForWorkoutById() {
+export function addEventListenerForWorkoutsByName() {
   document.addEventListener("DOMContentLoaded", () => {
-    const button = document.getElementById("getWorkoutByIdButton") as HTMLButtonElement;
-    const input = document.getElementById("getWorkoutByIdInput") as HTMLInputElement;
+    const button = document.getElementById("getWorkoutsByNameButton") as HTMLButtonElement;
+    const input = document.getElementById("getWorkoutsByNameInput") as HTMLInputElement;
   
     button.addEventListener("click", () => {
-      const id = Number(input.value);
-      if (!isNaN(id)) {
-        getWorkoutById(id);
+      const name = input.value;
+      if (typeof name === 'string') {
+        getWorkoutsByName(name);
       } else {
         console.error("Invalid input");
       }
@@ -17,8 +17,8 @@ export function addEventListenerForWorkoutById() {
   });
 }
 
-function getWorkoutById(input: number) {;  
-  fetch(`http://localhost:8080/api/workout/get/byId?id=${input}`)
+function getWorkoutsByName(input: string) {;  
+  fetch(`http://localhost:8080/api/workout/get/byName?name=${input}`)
     .then(async function (response) {
       let payload = await response.json();
       let workout = payload.payload as Array<Workout>;

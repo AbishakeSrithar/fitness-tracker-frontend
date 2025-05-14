@@ -1,0 +1,34 @@
+import type { Workout } from "../../models/workout";
+import { generateRow } from "../../utilities/tableUtility";
+
+export function generateWorkoutTable(data: Workout[], insertBefore: string) {
+  const prevTable = document.querySelector("table");
+  if (prevTable) {
+    prevTable.remove();
+  }
+  const tbl = document.createElement("table");
+  const tblBody = document.createElement("tbody");
+
+  const headerRow = generateRow([
+    "Id",
+    "Name",
+    "Date"
+  ]);
+  tblBody.appendChild(headerRow);
+  for (let i = 0; i < data.length; i++) {
+    const row = generateRow([
+      `${data[i].id}`,
+      `${data[i].name}`,
+      `${data[i].date}`
+    ]);
+
+    // add the row to the end of the table body
+    tblBody.appendChild(row);
+  }
+
+  // put the <tbody> in the <table>
+  tbl.appendChild(tblBody);
+  // appends <table> before div we're using as a divider
+  const div = document.getElementById(insertBefore);
+  document.body.insertBefore(tbl, div);
+}

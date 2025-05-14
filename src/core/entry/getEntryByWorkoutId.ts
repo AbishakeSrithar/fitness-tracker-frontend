@@ -1,15 +1,15 @@
 import type { Entry } from "../../models/entry";
 import { generateEntryTable } from "./entryUtils";
 
-export function addEventListenerForEntryById() {
+export function addEventListenerForEntryByWorkoutId() {
   document.addEventListener("DOMContentLoaded", () => {
-    const button = document.getElementById("getEntryByIdButton") as HTMLButtonElement;
-    const input = document.getElementById("getEntryByIdInput") as HTMLInputElement;
+    const button = document.getElementById("getEntryByWorkoutIdButton") as HTMLButtonElement;
+    const input = document.getElementById("getEntryByWorkoutIdInput") as HTMLInputElement;
   
     button.addEventListener("click", () => {
       const id = Number(input.value);
       if (!isNaN(id)) {
-        getEntryById(id);
+        getEntryByWorkoutId(id);
       } else {
         console.error("Invalid input");
       }
@@ -17,8 +17,8 @@ export function addEventListenerForEntryById() {
   });
 }
 
-function getEntryById(input: number) {;
-  fetch(`http://localhost:8080/api/entry/get/byId?id=${input}`)
+function getEntryByWorkoutId(input: number) {;
+  fetch(`http://localhost:8080/api/entry/get/byWorkoutId?workoutId=${input}`)
     .then(async function (response) {
       let payload = await response.json();      
       let entry = payload.payload as Array<Entry>;
