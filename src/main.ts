@@ -1,16 +1,18 @@
 import "./style.css";
-import { getAllEntries } from "./get/all/all-entries";
-import { getAllExercises } from "./get/all/all-exercises";
-import { getAllWorkouts } from "./get/all/all-workouts";
+import { getAllEntries } from "./core/entry/getAllEntries";
+import { getAllExercises } from "./core/exercise/getAllExercises";
+import { getAllWorkouts } from "./core/workout/getAllWorkouts";
 
-import { addEventListenerForEntryById } from "./get/byId/getEntryById";
-import { addEventListenerForExerciseById } from "./get/byId/getExerciseById";
-import { addEventListenerForWorkoutById } from "./get/byId/getWorkoutById";
+import { addEventListenerForEntryById } from "./core/entry/getEntryById";
+import { addEventListenerForExerciseById } from "./core/exercise/getExerciseById";
+import { addEventListenerForWorkoutById } from "./core/workout/getWorkoutById";
 
+// Get All
 document.getElementById("getAllEntriesButton")!.onclick = getAllEntries;
 document.getElementById("getAllExercisesButton")!.onclick = getAllExercises;
 document.getElementById("getAllWorkoutsButton")!.onclick = getAllWorkouts;
 
+// Get By Id
 addEventListenerForEntryById()
 addEventListenerForExerciseById()
 addEventListenerForWorkoutById()
