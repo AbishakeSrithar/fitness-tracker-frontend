@@ -1,5 +1,5 @@
-import type { Exercise } from "../../models/exercise";
-import { generateExerciseTable } from "./exerciseUtils";
+import type { Exercise } from "../../../models/exercise";
+import { generateExerciseTable } from "../exerciseUtils";
 
 export function addEventListenerForExerciseByName() {
   document.addEventListener("DOMContentLoaded", () => {
@@ -25,6 +25,6 @@ function getExerciseByName(input: string) {;
       return exercise;
     })
     .then(function (exercise) {
-      generateExerciseTable(exercise, "getByOutpgetExerciseByOutputEndutEnd");
+      generateExerciseTable(exercise, "getExerciseByOutputEnd");
     });
 }

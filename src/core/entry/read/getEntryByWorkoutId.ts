@@ -1,5 +1,5 @@
-import type { Entry } from "../../models/entry";
-import { generateEntryTable } from "./entryUtils";
+import type { Entry } from "../../../models/entry";
+import { generateEntryTable } from "../entryUtils";
 
 export function addEventListenerForEntryByWorkoutId() {
   document.addEventListener("DOMContentLoaded", () => {

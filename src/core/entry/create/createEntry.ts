@@ -1,7 +1,7 @@
-import type { Entry } from "../../models/entry";
-import { generateEntryTable } from "./entryUtils";
+import type { Entry } from "../../../models/entry";
+import { generateEntryTable } from "../entryUtils";
 
-export function addEventListenerForEntryById() {
+export function addEventListenerForGetEntryById() {
   document.addEventListener("DOMContentLoaded", () => {
     const button = document.getElementById("getEntryByIdButton") as HTMLButtonElement;
     const input = document.getElementById("getEntryByIdInput") as HTMLInputElement;

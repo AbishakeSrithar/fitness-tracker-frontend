@@ -1,5 +1,5 @@
-import type { Workout } from "../../models/workout";
-import { generateWorkoutTable } from "./workoutUtils";
+import type { Workout } from "../../../models/workout";
+import { generateWorkoutTable } from "../workoutUtils";
 
 export function getAllWorkouts() {
   fetch("http://localhost:8080/api/workout/get")

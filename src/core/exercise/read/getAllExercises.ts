@@ -1,5 +1,5 @@
-import type { Exercise } from "../../models/exercise";
-import { generateExerciseTable } from "./exerciseUtils";
+import type { Exercise } from "../../../models/exercise";
+import { generateExerciseTable } from "../exerciseUtils";
 
 export function getAllExercises() {
   fetch("http://localhost:8080/api/exercise/get")

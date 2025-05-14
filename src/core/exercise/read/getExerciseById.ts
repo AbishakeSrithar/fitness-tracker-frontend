@@ -1,5 +1,5 @@
-import type { Exercise } from "../../models/exercise";
-import { generateExerciseTable } from "./exerciseUtils";
+import type { Exercise } from "../../../models/exercise";
+import { generateExerciseTable } from "../exerciseUtils";
 
 export function addEventListenerForExerciseById() {
   document.addEventListener("DOMContentLoaded", () => {
