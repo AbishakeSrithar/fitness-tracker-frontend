@@ -18,6 +18,11 @@ import { addEventListenerForCreateEntry } from "./core/entry/create/createEntry"
 import { addEventListenerForCreateWorkout } from "./core/workout/create/createWorkout";
 import { addEventListenerForCreateExercise } from "./core/exercise/create/createExercise";
 
+// Update
+import { addEventListenerForUpdateEntry } from "./core/entry/update/updateEntry";
+import { addEventListenerForUpdateExercise } from "./core/exercise/update/updateExercise";
+import { addEventListenerForUpdateWorkout } from "./core/workout/update/updateWorkout";
+
 // Get All
 document.getElementById("getAllEntriesButton")!.onclick = getAllEntries;
 document.getElementById("getAllExercisesButton")!.onclick = getAllExercises;
@@ -37,6 +42,13 @@ addEventListenerForGetExerciseByName()
 addEventListenerForGetEntryByWorkoutId()
 addEventListenerForGetEntryByExerciseId()
 
+// Create
 addEventListenerForCreateEntry()
 addEventListenerForCreateWorkout()
 addEventListenerForCreateExercise()
+
+// Update
+addEventListenerForUpdateEntry()
+addEventListenerForUpdateExercise()
+addEventListenerForUpdateWorkout()
+
