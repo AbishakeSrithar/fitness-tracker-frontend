@@ -23,6 +23,11 @@ import { addEventListenerForUpdateEntry } from "./core/entry/update/updateEntry"
 import { addEventListenerForUpdateExercise } from "./core/exercise/update/updateExercise";
 import { addEventListenerForUpdateWorkout } from "./core/workout/update/updateWorkout";
 
+// Delete
+import { addEventListenerForDeleteExercise } from "./core/exercise/delete/deleteExercise";
+import { addEventListenerForDeleteEntry } from "./core/entry/delete/deleteEntry";
+import { addEventListenerForDeleteWorkout } from "./core/workout/delete/deleteWorkout";
+
 // Get All
 document.getElementById("getAllEntriesButton")!.onclick = getAllEntries;
 document.getElementById("getAllExercisesButton")!.onclick = getAllExercises;
@@ -51,4 +56,9 @@ addEventListenerForCreateExercise()
 addEventListenerForUpdateEntry()
 addEventListenerForUpdateExercise()
 addEventListenerForUpdateWorkout()
+
+// Delete
+addEventListenerForDeleteExercise()
+addEventListenerForDeleteEntry()
+addEventListenerForDeleteWorkout()
 
