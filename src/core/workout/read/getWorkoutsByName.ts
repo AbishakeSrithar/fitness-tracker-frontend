@@ -3,12 +3,16 @@ import { generateWorkoutTable } from "../workoutUtils";
 
 export function addEventListenerForGetWorkoutsByName() {
   document.addEventListener("DOMContentLoaded", () => {
-    const button = document.getElementById("getWorkoutsByNameButton") as HTMLButtonElement;
-    const input = document.getElementById("getWorkoutsByNameInput") as HTMLInputElement;
-  
+    const button = document.getElementById(
+      "getWorkoutsByNameButton",
+    ) as HTMLButtonElement;
+    const input = document.getElementById(
+      "getWorkoutsByNameInput",
+    ) as HTMLInputElement;
+
     button.addEventListener("click", () => {
       const name = input.value;
-      if (typeof name === 'string') {
+      if (typeof name === "string") {
         getWorkoutsByName(name);
       } else {
         console.error("Invalid input");
@@ -17,7 +21,7 @@ export function addEventListenerForGetWorkoutsByName() {
   });
 }
 
-function getWorkoutsByName(input: string) {;  
+function getWorkoutsByName(input: string) {
   fetch(`${import.meta.env.VITE_BASE_API_URL}/workout/get/byName?name=${input}`)
     .then(async function (response) {
       let payload = await response.json();

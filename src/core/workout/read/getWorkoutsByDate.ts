@@ -3,12 +3,16 @@ import { generateWorkoutTable } from "../workoutUtils";
 
 export function addEventListenerForGetWorkoutsByDate() {
   document.addEventListener("DOMContentLoaded", () => {
-    const button = document.getElementById("getWorkoutsByDateButton") as HTMLButtonElement;
-    const input = document.getElementById("getWorkoutsByDateInput") as HTMLInputElement;
-  
+    const button = document.getElementById(
+      "getWorkoutsByDateButton",
+    ) as HTMLButtonElement;
+    const input = document.getElementById(
+      "getWorkoutsByDateInput",
+    ) as HTMLInputElement;
+
     button.addEventListener("click", () => {
       const date = input.value;
-      if (typeof date === 'string') {
+      if (typeof date === "string") {
         getWorkoutsByDate(date);
       } else {
         console.error("Invalid input");
@@ -17,7 +21,7 @@ export function addEventListenerForGetWorkoutsByDate() {
   });
 }
 
-function getWorkoutsByDate(input: string) {;  
+function getWorkoutsByDate(input: string) {
   fetch(`${import.meta.env.VITE_BASE_API_URL}/workout/get/byDate?date=${input}`)
     .then(async function (response) {
       let payload = await response.json();

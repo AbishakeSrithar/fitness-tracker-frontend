@@ -9,17 +9,13 @@ export function generateWorkoutTable(data: Workout[], insertBefore: string) {
   const tbl = document.createElement("table");
   const tblBody = document.createElement("tbody");
 
-  const headerRow = generateRow([
-    "Id",
-    "Name",
-    "Date"
-  ]);
+  const headerRow = generateRow(["Id", "Name", "Date"]);
   tblBody.appendChild(headerRow);
   for (let i = 0; i < data.length; i++) {
     const row = generateRow([
       `${data[i].id}`,
       `${data[i].name}`,
-      `${data[i].date}`
+      `${data[i].date}`,
     ]);
 
     // add the row to the end of the table body

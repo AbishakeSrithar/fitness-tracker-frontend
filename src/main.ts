@@ -34,31 +34,30 @@ document.getElementById("getAllExercisesButton")!.onclick = getAllExercises;
 document.getElementById("getAllWorkoutsButton")!.onclick = getAllWorkouts;
 
 // Get By Id
-addEventListenerForGetEntryById()
+addEventListenerForGetEntryById();
 
 // Workout Get By
-addEventListenerForGetWorkoutById()
-addEventListenerForGetWorkoutsByName()
-addEventListenerForGetWorkoutsByDate()
+addEventListenerForGetWorkoutById();
+addEventListenerForGetWorkoutsByName();
+addEventListenerForGetWorkoutsByDate();
 
 // Exercise Get By
-addEventListenerForGetExerciseById()
-addEventListenerForGetExerciseByName()
-addEventListenerForGetEntryByWorkoutId()
-addEventListenerForGetEntryByExerciseId()
+addEventListenerForGetExerciseById();
+addEventListenerForGetExerciseByName();
+addEventListenerForGetEntryByWorkoutId();
+addEventListenerForGetEntryByExerciseId();
 
 // Create
-addEventListenerForCreateEntry()
-addEventListenerForCreateWorkout()
-addEventListenerForCreateExercise()
+addEventListenerForCreateEntry();
+addEventListenerForCreateWorkout();
+addEventListenerForCreateExercise();
 
 // Update
-addEventListenerForUpdateEntry()
-addEventListenerForUpdateExercise()
-addEventListenerForUpdateWorkout()
+addEventListenerForUpdateEntry();
+addEventListenerForUpdateExercise();
+addEventListenerForUpdateWorkout();
 
 // Delete
-addEventListenerForDeleteExercise()
-addEventListenerForDeleteEntry()
-addEventListenerForDeleteWorkout()
-
+addEventListenerForDeleteExercise();
+addEventListenerForDeleteEntry();
+addEventListenerForDeleteWorkout();
