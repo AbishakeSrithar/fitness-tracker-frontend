@@ -1,4 +1,5 @@
 import type { Exercise } from "../../../models/exercise";
+import { checkAndGetRestResponse } from "../../../utilities/errors";
 import { generateExerciseTable } from "../exerciseUtils";
 
 export function addEventListenerForGetExerciseByName() {
@@ -26,7 +27,7 @@ function getExerciseByName(input: string) {
     `${import.meta.env.VITE_BASE_API_URL}/exercise/get/byName?name=${input}`,
   )
     .then(async function (response) {
-      let payload = await response.json();
+      let payload = await checkAndGetRestResponse(response);
       let exercise = payload.payload as Array<Exercise>;
       return exercise;
     })

@@ -1,4 +1,5 @@
 import type { Workout } from "../../../models/workout";
+import { checkAndGetRestResponse } from "../../../utilities/errors";
 import { generateWorkoutTable } from "../workoutUtils";
 
 export function addEventListenerForCreateWorkout() {
@@ -34,7 +35,7 @@ function createWorkout(name: string, date: string) {
   )
     .then(async function (response) {
       if (response.status == 200) {
-        let payload = await response.json();
+        let payload = await checkAndGetRestResponse(response);
         let workout = payload.payload as Array<Workout>;
         return workout;
       } else {

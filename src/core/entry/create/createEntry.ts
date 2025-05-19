@@ -1,6 +1,9 @@
 import type { Entry } from "../../../models/entry";
 import { generateEntryTable } from "../entryUtils";
-import { generateErrorMessage } from "../../../utilities/errors";
+import {
+  checkAndGetRestResponse,
+  throwAlertError,
+} from "../../../utilities/errors";
 import { validateInputsExist } from "../../../utilities/inputValidation";
 
 export function addEventListenerForCreateEntry() {
@@ -34,7 +37,7 @@ export function addEventListenerForCreateEntry() {
           repsInput.value,
         ])
       ) {
-        generateErrorMessage("Empty Input", "createOutputEnd");
+        throwAlertError("Empty Input");
       } else {
         const workoutId = Number(workoutIdInput.value);
         const exerciseId = Number(exerciseIdInput.value);
@@ -52,7 +55,7 @@ export function addEventListenerForCreateEntry() {
         ) {
           createEntry(workoutId, exerciseId, weight, sets, reps);
         } else {
-          generateErrorMessage("Invalid Input", "createOutputEnd");
+          throwAlertError("Invalid Input");
         }
       }
     });
@@ -73,25 +76,15 @@ function createEntry(
     },
   )
     .then(async function (response) {
-      if (response.status == 200) {
-        let payload = await response.json();
-        let entry = payload.payload as Array<Entry>;
-        return entry;
-      } else {
-        console.error(
-          `response.status == ${response.status}, does Workout Id and Excercise Id exist?`,
-        );
-        return [];
-      }
+      let payload = await checkAndGetRestResponse(response);
+      let entry = payload.payload as Array<Entry>;
+      return entry;
     })
     .then(function (entry) {
       if (entry.length !== 0) {
         generateEntryTable(entry, "createOutputEnd");
       } else {
-        generateErrorMessage(
-          "WorkoutId OR ExerciseId does not exist",
-          "createOutputEnd",
-        );
+        throwAlertError("WorkoutId OR ExerciseId does not exist");
       }
     });
 }

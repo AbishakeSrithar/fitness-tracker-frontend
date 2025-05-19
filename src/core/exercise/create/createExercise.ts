@@ -39,7 +39,7 @@ function createExercise(name: string, description: string) {
   )
     .then(async function (response) {
       if (response.status == 200) {
-        let payload = await response.json();
+        let payload = await checkAndGetRestResponse(response);
         let exercise = payload.payload as Array<Exercise>;
         return exercise;
       } else {

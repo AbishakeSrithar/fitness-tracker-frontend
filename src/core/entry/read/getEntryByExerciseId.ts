@@ -1,4 +1,5 @@
 import type { Entry } from "../../../models/entry";
+import { checkAndGetRestResponse } from "../../../utilities/errors";
 import { generateEntryTable } from "../entryUtils";
 
 export function addEventListenerForGetEntryByExerciseId() {
@@ -26,7 +27,7 @@ function getEntryByExerciseId(input: number) {
     `${import.meta.env.VITE_BASE_API_URL}/entry/get/byExerciseId?exerciseId=${input}`,
   )
     .then(async function (response) {
-      let payload = await response.json();
+      let payload = await checkAndGetRestResponse(response);
       let entry = payload.payload as Array<Entry>;
       return entry;
     })

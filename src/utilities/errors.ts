@@ -1,10 +1,24 @@
-export function generateErrorMessage(errorMsg: string, insertBefore: string) {
-  const prevTable = document.querySelector("table");
-  if (prevTable) {
-    prevTable.remove();
+import { responseToObject } from "./apiValidation";
+
+export function throwAlertError(errorMsg: string) {
+  window.alert(errorMsg);
+  throw console.error(errorMsg);
+}
+
+export async function checkAndGetRestResponse(response: Response) {
+  if (response.status == 200) {
+    const restResponse = await responseToObject(response);
+    return checkIfBESuccess(restResponse);
+  } else {
+    throwAlertError(`response.status == ${response.status}`);
+    throw console.error(`response.status == ${response.status}`);
   }
-  const errorText = document.createTextNode(errorMsg);
-  // appends <table> before div we're using as a divider
-  const div = document.getElementById(insertBefore);
-  document.body.insertBefore(errorText, div);
+}
+
+export function checkIfBESuccess(responseJson: any) {
+  if ((responseJson.success as Boolean) == true) {
+    return responseJson;
+  } else {
+    throwAlertError(`BE Error: ${responseJson.info}`);
+  }
 }

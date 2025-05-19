@@ -1,6 +1,9 @@
 import type { Entry } from "../../../models/entry";
 import { generateEntryTable } from "../entryUtils";
-import { generateErrorMessage } from "../../../utilities/errors";
+import {
+  checkAndGetRestResponse,
+  throwAlertError,
+} from "../../../utilities/errors";
 import { validateInputsExist } from "../../../utilities/inputValidation";
 
 export function addEventListenerForGetEntryById() {
@@ -14,13 +17,13 @@ export function addEventListenerForGetEntryById() {
 
     button.addEventListener("click", () => {
       if (!validateInputsExist([input.value])) {
-        generateErrorMessage("Empty/Invalid Input", "getEntryByOutputEnd");
+        throwAlertError("Empty Input");
       } else {
         const id = Number(input.value);
         if (!isNaN(id)) {
           getEntryById(id);
         } else {
-          console.error("Invalid input");
+          throwAlertError("Invalid input");
         }
       }
     });
@@ -30,7 +33,7 @@ export function addEventListenerForGetEntryById() {
 function getEntryById(input: number) {
   fetch(`${import.meta.env.VITE_BASE_API_URL}/entry/get/byId?id=${input}`)
     .then(async function (response) {
-      let payload = await response.json();
+      let payload = await checkAndGetRestResponse(response);
       let entry = payload.payload as Array<Entry>;
       return entry;
     })

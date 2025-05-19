@@ -1,4 +1,5 @@
 import type { Entry } from "../../../models/entry";
+import { checkAndGetRestResponse } from "../../../utilities/errors";
 import { generateEntryTable } from "../entryUtils";
 
 export function addEventListenerForDeleteEntry() {
@@ -26,7 +27,7 @@ function deleteEntry(id: number) {
     method: "DELETE",
   })
     .then(async function (response) {
-      let payload = await response.json();
+      let payload = await checkAndGetRestResponse(response);
       let entry = payload.payload as Array<Entry>;
       return entry;
     })
