@@ -10,8 +10,8 @@ export async function checkAndGetRestResponse(response: Response) {
     const restResponse = await responseToObject(response);
     return checkIfBESuccess(restResponse);
   } else {
-    throwAlertError(`response.status == ${response.status}`);
-    throw console.error(`response.status == ${response.status}`);
+    throwAlertError(`Status: ${response.status}`);
+    throw console.error(`Status: ${response.status}. Do Ids exist? Are they linked?`);
   }
 }
 
