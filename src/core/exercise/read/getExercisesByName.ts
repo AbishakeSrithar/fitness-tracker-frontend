@@ -1,5 +1,6 @@
 import type { Exercise } from "../../../models/exercise";
-import { checkAndGetRestResponse } from "../../../utilities/errors";
+import { checkAndGetRestResponse, throwAlertError } from "../../../utilities/errors";
+import { validateInputsExist } from "../../../utilities/inputValidation";
 import { generateExerciseTable } from "../exerciseUtils";
 
 export function addEventListenerForGetExerciseByName() {
@@ -12,11 +13,15 @@ export function addEventListenerForGetExerciseByName() {
     ) as HTMLInputElement;
 
     button.addEventListener("click", () => {
-      const name = input.value;
-      if (typeof name === "string") {
-        getExerciseByName(name);
+      if (!validateInputsExist([input.value])) {
+        throwAlertError("Empty Input");
       } else {
-        console.error("Invalid input");
+        const name = input.value;
+        if (typeof name === "string") {
+          getExerciseByName(name);
+        } else {
+          throwAlertError("Invalid input");
+        }
       }
     });
   });

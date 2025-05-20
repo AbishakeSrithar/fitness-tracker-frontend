@@ -7,3 +7,8 @@ export function validateInputsExist(inputs: string[]): Boolean {
   });
   return res;
 }
+
+export function validateDate(input: string): Boolean {
+  const regex = new RegExp(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/);
+  return regex.test(input)
+}

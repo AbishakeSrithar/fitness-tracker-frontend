@@ -1,5 +1,6 @@
 import type { Exercise } from "../../../models/exercise";
-import { checkAndGetRestResponse } from "../../../utilities/errors";
+import { checkAndGetRestResponse, throwAlertError } from "../../../utilities/errors";
+import { validateInputsExist } from "../../../utilities/inputValidation";
 import { generateExerciseTable } from "../exerciseUtils";
 
 export function addEventListenerForDeleteExercise() {
@@ -12,12 +13,16 @@ export function addEventListenerForDeleteExercise() {
     ) as HTMLInputElement;
 
     button.addEventListener("click", () => {
-      const id = Number(idInput.value);
-      if (!isNaN(id)) {
-        deleteExercise(id);
-      } else {
-        console.error("Invalid input");
-      }
+      if (!validateInputsExist([idInput.value])) {
+        throwAlertError("Empty Input");
+        } else {
+          const id = Number(idInput.value);
+          if (!isNaN(id)) {
+            deleteExercise(id);
+          } else {
+            throwAlertError("Invalid input");
+          }
+        }
     });
   });
 }

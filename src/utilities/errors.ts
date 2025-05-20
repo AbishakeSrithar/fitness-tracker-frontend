@@ -16,7 +16,7 @@ export async function checkAndGetRestResponse(response: Response) {
 }
 
 export function checkIfBESuccess(responseJson: any) {
-  if ((responseJson.success as Boolean) == true) {
+  if ((responseJson.success as Boolean) === true) {
     return responseJson;
   } else {
     throwAlertError(`BE Error: ${responseJson.info}`);

@@ -1,5 +1,6 @@
 import type { Workout } from "../../../models/workout";
-import { checkAndGetRestResponse } from "../../../utilities/errors";
+import { checkAndGetRestResponse, throwAlertError } from "../../../utilities/errors";
+import { validateDate, validateInputsExist } from "../../../utilities/inputValidation";
 import { generateWorkoutTable } from "../workoutUtils";
 
 export function addEventListenerForUpdateWorkout() {
@@ -18,13 +19,17 @@ export function addEventListenerForUpdateWorkout() {
     ) as HTMLInputElement;
 
     button.addEventListener("click", () => {
-      const id = Number(idInput.value);
-      const name = nameInput.value;
-      const date = dateInput.value;
-      if (!isNaN(id) && typeof name === "string" && typeof date === "string") {
-        updateWorkout(id, name, date);
+      if (!validateInputsExist([idInput.value, nameInput.value, dateInput.value])) {
+        throwAlertError("Empty Input");
       } else {
-        console.error("Invalid input");
+        const id = Number(idInput.value);
+        const name = nameInput.value;
+        const date = dateInput.value;
+        if (!isNaN(id) && typeof name === "string" && typeof date === "string" && validateDate(date)) {
+          updateWorkout(id, name, date);
+        } else {
+          throwAlertError("Invalid input (YYYY-MM-DD required)");
+        }
       }
     });
   });

@@ -1,5 +1,6 @@
 import type { Workout } from "../../../models/workout";
-import { checkAndGetRestResponse } from "../../../utilities/errors";
+import { checkAndGetRestResponse, throwAlertError } from "../../../utilities/errors";
+import { validateDate, validateInputsExist } from "../../../utilities/inputValidation";
 import { generateWorkoutTable } from "../workoutUtils";
 
 export function addEventListenerForGetWorkoutsByDate() {
@@ -12,11 +13,15 @@ export function addEventListenerForGetWorkoutsByDate() {
     ) as HTMLInputElement;
 
     button.addEventListener("click", () => {
-      const date = input.value;
-      if (typeof date === "string") {
-        getWorkoutsByDate(date);
+      if (!validateInputsExist([input.value])) {
+        throwAlertError("Empty Input");
       } else {
-        console.error("Invalid input");
+        const date = input.value;
+        if (typeof date === "string" && validateDate(date)) {
+          getWorkoutsByDate(date);
+        } else {
+          throwAlertError("Invalid input (YYYY-MM-DD required)");
+        }
       }
     });
   });

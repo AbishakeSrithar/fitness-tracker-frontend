@@ -1,5 +1,6 @@
 import type { Entry } from "../../../models/entry";
-import { checkAndGetRestResponse } from "../../../utilities/errors";
+import { checkAndGetRestResponse, throwAlertError } from "../../../utilities/errors";
+import { validateInputsExist } from "../../../utilities/inputValidation";
 import { generateEntryTable } from "../entryUtils";
 
 export function addEventListenerForUpdateEntry() {
@@ -21,14 +22,18 @@ export function addEventListenerForUpdateEntry() {
     ) as HTMLInputElement;
 
     button.addEventListener("click", () => {
-      const id = Number(idInput.value);
-      const weight = Number(weightInput.value);
-      const sets = Number(setsInput.value);
-      const reps = Number(repsInput.value);
-      if (!isNaN(id) && !isNaN(weight) && !isNaN(sets) && !isNaN(reps)) {
-        updateEntry(id, weight, sets, reps);
+      if (!validateInputsExist([idInput.value, weightInput.value, setsInput.value, repsInput.value])) {
+        throwAlertError("Empty Input");
       } else {
-        console.error("Invalid input");
+        const id = Number(idInput.value);
+        const weight = Number(weightInput.value);
+        const sets = Number(setsInput.value);
+        const reps = Number(repsInput.value);
+        if (!isNaN(id) && !isNaN(weight) && !isNaN(sets) && !isNaN(reps)) {
+          updateEntry(id, weight, sets, reps);
+        } else {
+          throwAlertError("Invalid input");
+        }
       }
     });
   });

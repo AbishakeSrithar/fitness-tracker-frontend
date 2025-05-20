@@ -1,5 +1,6 @@
 import type { Exercise } from "../../../models/exercise";
-import { checkAndGetRestResponse } from "../../../utilities/errors";
+import { checkAndGetRestResponse, throwAlertError } from "../../../utilities/errors";
+import { validateInputsExist } from "../../../utilities/inputValidation";
 import { generateExerciseTable } from "../exerciseUtils";
 
 export function addEventListenerForGetExerciseById() {
@@ -12,11 +13,15 @@ export function addEventListenerForGetExerciseById() {
     ) as HTMLInputElement;
 
     button.addEventListener("click", () => {
-      const id = Number(input.value);
-      if (!isNaN(id)) {
-        getExerciseById(id);
+      if (!validateInputsExist([input.value])) {
+        throwAlertError("Empty Input");
       } else {
-        console.error("Invalid input");
+        const id = Number(input.value);
+        if (!isNaN(id)) {
+          getExerciseById(id);
+        } else {
+          throwAlertError("Invalid input");
+        }
       }
     });
   });

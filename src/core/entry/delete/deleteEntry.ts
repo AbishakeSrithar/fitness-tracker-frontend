@@ -1,6 +1,7 @@
 import type { Entry } from "../../../models/entry";
-import { checkAndGetRestResponse } from "../../../utilities/errors";
+import { checkAndGetRestResponse, throwAlertError } from "../../../utilities/errors";
 import { generateEntryTable } from "../entryUtils";
+import { validateInputsExist } from "../../../utilities/inputValidation";
 
 export function addEventListenerForDeleteEntry() {
   document.addEventListener("DOMContentLoaded", () => {
@@ -12,11 +13,15 @@ export function addEventListenerForDeleteEntry() {
     ) as HTMLInputElement;
 
     button.addEventListener("click", () => {
-      const id = Number(idInput.value);
-      if (!isNaN(id)) {
-        deleteEntry(id);
+      if (!validateInputsExist([idInput.value])) {
+        throwAlertError("Empty Input");
       } else {
-        console.error("Invalid input");
+        const id = Number(idInput.value);
+        if (!isNaN(id)) {
+          deleteEntry(id);
+        } else {
+          throwAlertError("Invalid input");
+        }
       }
     });
   });

@@ -1,5 +1,6 @@
 import type { Workout } from "../../../models/workout";
-import { checkAndGetRestResponse } from "../../../utilities/errors";
+import { checkAndGetRestResponse, throwAlertError } from "../../../utilities/errors";
+import { validateDate, validateInputsExist } from "../../../utilities/inputValidation";
 import { generateWorkoutTable } from "../workoutUtils";
 
 export function addEventListenerForCreateWorkout() {
@@ -15,12 +16,16 @@ export function addEventListenerForCreateWorkout() {
     ) as HTMLInputElement;
 
     button.addEventListener("click", () => {
-      const name = nameInput.value;
-      const date = dateInput.value;
-      if (typeof name === "string" && typeof date === "string" && name !== "") {
-        createWorkout(name, date);
+      if (!validateInputsExist([nameInput.value])) { // dateInput.value optional param, so left out
+        throwAlertError("Empty Input");
       } else {
-        console.error("Invalid input");
+        const name = nameInput.value;
+        const date = dateInput.value;
+        if (typeof name === "string" && typeof date === "string" && ((date !== "" && validateDate(date)) || date === "")) {
+          createWorkout(name, date);
+        } else {
+          throwAlertError("Invalid input (YYYY-MM-DD required)");
+        }
       }
     });
   });
@@ -34,14 +39,9 @@ function createWorkout(name: string, date: string) {
     },
   )
     .then(async function (response) {
-      if (response.status == 200) {
-        let payload = await checkAndGetRestResponse(response);
-        let workout = payload.payload as Array<Workout>;
-        return workout;
-      } else {
-        console.error(`response.status == ${response.status}`);
-        return [];
-      }
+      let payload = await checkAndGetRestResponse(response);
+      let workout = payload.payload as Array<Workout>;
+      return workout;
     })
     .then(function (workout) {
       generateWorkoutTable(workout, "createOutputEnd");
