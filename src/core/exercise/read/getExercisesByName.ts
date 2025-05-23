@@ -77,15 +77,15 @@ async function graphExerciseEntries(entry: Array<Entry>) {
 
   let keys = entriesLength
   let weightMap: Record<string, number> =  {};
-
-  console.log(keys)
+  let repMap: Record<string, number> =  {};
 
   keys.forEach(index => { 
-    weightMap[index] = entry[index - 1].weight });
-  console.log(weightMap)
+    weightMap[index] = entry[index - 1].weight
+    repMap[index] = entry[index - 1].sets * entry[index - 1].reps
+   }
+  );
 
   let labels = Object.keys(weightMap)
-  console.log(labels)
 
   new Chart(
     document.getElementById('chart1') as ChartItem,
@@ -95,8 +95,12 @@ async function graphExerciseEntries(entry: Array<Entry>) {
         labels: labels,
         datasets: [
           {
-            label: 'workouts',
+            label: 'Max Weight',
             data: keys.map(key => weightMap[key] ?? 0)
+          },
+          {
+            label: 'Total Reps',
+            data: keys.map(key => repMap[key] ?? 0)
           }
         ]
       },

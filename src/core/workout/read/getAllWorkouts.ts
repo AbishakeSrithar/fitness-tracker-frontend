@@ -103,6 +103,9 @@ async function graphWorkouts(workout: Array<Workout>) {
 
   let labels = Object.keys(countMap).sort()
 
+  console.log(countMap)
+  console.log(labels)
+
   new Chart(
     document.getElementById('chart1') as ChartItem,
     {
@@ -126,6 +129,12 @@ async function graphWorkouts(workout: Array<Workout>) {
             display: true,
             text: 'Total Workouts per Month'
           }
+        },
+        scales: {
+            y: {
+                suggestedMin: 0,
+                suggestedMax: 100
+            }
         }
       }
     }
