@@ -47,18 +47,32 @@ async function graphWorkouts(workout: Array<Workout>) {
   const container1 = document.getElementsByClassName('row')[0] as HTMLElement
   container1!.style.display = 'flex';
 
+  let labels = Object.keys(countMap).sort()
+
   new Chart(
     document.getElementById('chart1') as ChartItem,
     {
-      type: 'bar',
+      type: 'line',
       data: {
-        labels: Object.keys(countMap),
+        labels: labels,
         datasets: [
           {
             label: 'workouts',
-            data: Object.values(countMap)
+            data: labels.map(label => countMap[label] ?? 0)
           }
         ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Workouts per Month'
+          }
+        }
       }
     }
   );
@@ -79,16 +93,18 @@ async function graphWorkouts(workout: Array<Workout>) {
   }
   });
 
+  let labels2 = Object.keys(countMap2).sort()
+
   new Chart(
     document.getElementById('chart2') as ChartItem,
     {
       type: 'bar',
       data: {
-        labels: Object.keys(countMap2),
+        labels: labels2,
         datasets: [
           {
-            label: 'workouts',
-            data: Object.values(countMap2)
+            label: 'Workout Split',
+            data: labels2.map(label => countMap2[label] ?? 0)
           }
         ]
       }
