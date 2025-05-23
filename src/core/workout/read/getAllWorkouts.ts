@@ -103,24 +103,6 @@ async function graphWorkouts(workout: Array<Workout>) {
 
   let labels = Object.keys(countMap).sort()
 
-  // let workoutName: string[] = []
-  // let countMap2: Record<string, number> =  {};
-
-  // workout.map( row => {
-  //   const value = row.name
-  //   workoutName.push(value)
-  // })
-
-  // workoutName.forEach(element => {
-  // if (countMap2[element] === undefined) {
-  //   countMap2[element] = 1;
-  // } else {
-  //   countMap2[element] += 1;
-  // }
-  // });
-
-  // let labels2 = Object.keys(countMap2).sort()
-
   new Chart(
     document.getElementById('chart1') as ChartItem,
     {
