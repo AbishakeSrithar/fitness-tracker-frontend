@@ -74,9 +74,8 @@ input {
   display: flex;
   flex-direction: row;
 }
-canvas{
-    /* border:1px solid black;    */
-}
-.row{
+.row,
+.row2
+{
     display: none; 
 }

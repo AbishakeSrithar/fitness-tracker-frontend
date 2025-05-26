@@ -21,3 +21,11 @@ function createCell(input: string): HTMLTableCellElement {
   cell.appendChild(cellText);
   return cell;
 }
+
+
+export function collapseTable() {
+  const prevTable = document.querySelector("table");
+  if (prevTable) {
+    prevTable.remove();
+  }
+}

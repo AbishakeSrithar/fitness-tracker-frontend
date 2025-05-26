@@ -28,6 +28,18 @@ import { addEventListenerForDeleteExercise } from "./core/exercise/delete/delete
 import { addEventListenerForDeleteEntry } from "./core/entry/delete/deleteEntry";
 import { addEventListenerForDeleteWorkout } from "./core/workout/delete/deleteWorkout";
 
+// Import CSV
+import { importCSV } from "./core/importCSV";
+import { addEventListenerForGraphExercise } from "./core/exercise/read/graphExercise";
+import { collapseTable } from "./utilities/tableUtility";
+import { getAllWorkoutsAndGraph } from "./core/workout/read/graphWorkouts";
+
+getAllWorkoutsAndGraph()
+
+// Quick Tools
+document.getElementById("importButton")!.onclick = importCSV;
+document.getElementById("collapseTables")!.onclick = collapseTable;
+addEventListenerForGraphExercise();
 
 // Get All
 document.getElementById("getAllEntriesButton")!.onclick = getAllEntries;
