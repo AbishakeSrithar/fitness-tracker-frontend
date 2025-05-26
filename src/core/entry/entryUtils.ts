@@ -37,5 +37,6 @@ export function generateEntryTable(data: Entry[], insertBefore: string) {
   tbl.appendChild(tblBody);
   // appends <table> before div we're using as a divider
   const div = document.getElementById(insertBefore);
-  document.body.insertBefore(tbl, div);
+  const parent = document.getElementById("content")
+  parent!.insertBefore(tbl, div);
 }
