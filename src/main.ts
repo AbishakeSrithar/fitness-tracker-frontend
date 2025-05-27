@@ -32,7 +32,6 @@ import { addEventListenerForDeleteWorkout } from "./core/workout/delete/deleteWo
 import { importCSV } from "./core/importCSV";
 import { addEventListenerForGraphExercise } from "./core/exercise/read/graphExercise";
 import { collapseTable } from "./utilities/tableUtility";
-import { getAllWorkoutsAndGraph } from "./core/workout/read/graphWorkouts";
 
 var coll = document.getElementsByClassName("collapsible");
 var i;
@@ -48,8 +47,6 @@ for (i = 0; i < coll.length; i++) {
     }
   });
 } 
-
-getAllWorkoutsAndGraph()
 
 // Quick Tools
 document.getElementById("importButton")!.onclick = importCSV;

@@ -13,13 +13,15 @@ export function addEventListenerForGraphExercise() {
       "graphExerciseInput",
     ) as HTMLInputElement;
 
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       if (!validateInputsExist([input.value])) {
         throwAlertError("Empty Input");
       } else {
         const name = input.value;
         if (typeof name === "string") {
-          getExerciseByName(name);
+          let exercise = await getExerciseByName(name);
+          let entries = await getEntriesByExerciseId(exercise[0]?.id)
+          graphExerciseEntries(entries, name)
         } else {
           throwAlertError("Invalid input");
         }
@@ -28,8 +30,8 @@ export function addEventListenerForGraphExercise() {
   });
 }
 
-function getExerciseByName(input: string) {
-  fetch(
+async function getExerciseByName(input: string): Promise<Exercise[]>{
+  return fetch(
     `${import.meta.env.VITE_BASE_API_URL}/exercise/get/byName?name=${input}`,
   )
     .then(async function (response) {
@@ -37,69 +39,33 @@ function getExerciseByName(input: string) {
       let exercise = payload.payload as Array<Exercise>;
       return exercise;
     })
-    .then(function (exercise) {
-      getEntriesByExerciseId(exercise[0]?.id, exercise[0]?.name)
-    });
 }
 
-function getEntriesByExerciseId(input: number, name: string) {
-  fetch(
+async function getEntriesByExerciseId(input: number): Promise<Entry[]>{
+  return fetch(
     `${import.meta.env.VITE_BASE_API_URL}/entry/get/byExerciseId?exerciseId=${input}`,
   )
     .then(async function (response) {
       let payload = await checkAndGetRestResponse(response);
-      let entry = payload.payload as Array<Entry>;
-      return entry;
+      let entries = payload.payload as Array<Entry>;
+      return entries;
     })
-    .then(function (entry) {
-      graphExerciseEntries(entry, name);
-    });
 }
 
 async function graphExerciseEntries(entry: Array<Entry>, name: string) {
 
-  // let chart1Status = Chart.getChart("chart1");
-  // if (chart1Status != undefined) {
-  //   chart1Status.destroy();
-  // }
-
-  // let chart2Status = Chart.getChart("chart2");
-  // if (chart2Status != undefined) {
-  //   chart2Status.destroy();
-  // }
-
   const container1 = document.getElementsByClassName('row2')[0] as HTMLElement
   container1!.style.display = 'flex';
 
-  let nextFreeChartId = "chart3"
+  const chartIds = ["chart3", "chart4", "chart5", "chart6"]
+  let nextFreeChartId = chartIds.find(id => !Chart.getChart(id))
 
-  if (Chart.getChart(nextFreeChartId)) {
-    nextFreeChartId = "chart4"
-  }
-  if (Chart.getChart(nextFreeChartId)) {
-    nextFreeChartId = "chart5"
-  }
-  if (Chart.getChart(nextFreeChartId)) {
-    nextFreeChartId = "chart6"
-  }
-  if (Chart.getChart(nextFreeChartId)) {
+  if (!nextFreeChartId) {
+    chartIds.forEach(id => {
+      const chart = Chart.getChart(id)
+      chart?.destroy()
+    })
     nextFreeChartId = "chart3"
-    let chart3Status = Chart.getChart("chart3");
-    if (chart3Status != undefined) {
-      chart3Status.destroy();
-    }
-    let chart4Status = Chart.getChart("chart4");
-    if (chart4Status != undefined) {
-      chart4Status.destroy();
-    }
-    let chart5Status = Chart.getChart("chart5");
-    if (chart5Status != undefined) {
-      chart5Status.destroy();
-    }
-    let chart6Status = Chart.getChart("chart6");
-    if (chart6Status != undefined) {
-      chart6Status.destroy();
-    }
   }
 
   const entriesLength = [...Array(entry.length).keys()].map(i => i + 1);

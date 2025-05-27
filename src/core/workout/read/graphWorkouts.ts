@@ -16,51 +16,51 @@ export function getAllWorkoutsAndGraph() {
 
 async function graphWorkouts(workout: Array<Workout>) {
 
-  let chart1Status = Chart.getChart("chart1");
-  if (chart1Status != undefined) {
-    chart1Status.destroy();
-  }
+  let chart1 = Chart.getChart("chart1");
+  chart1?.destroy()
+  let chart2 = Chart.getChart("chart2");
+  chart2?.destroy()
 
-  let chart2Status = Chart.getChart("chart2");
-  if (chart2Status != undefined) {
-    chart2Status.destroy();
-  }
+  const container = document.getElementsByClassName('row')[0] as HTMLElement
+  container!.style.display = 'flex';
 
-  const container1 = document.getElementsByClassName('row')[0] as HTMLElement
-  container1!.style.display = 'flex';
-
-  let workoutMonthsYears: string[] = []
-  let countMap: Record<string, number> =  {};
+  let workoutMonth: string[] = []
+  let workoutCountMap: Record<string, number> =  {};
 
   workout.map( row => {
     const value = row.date.slice(0, 7)
-    workoutMonthsYears.push(value)
+    workoutMonth.push(value)
   })
 
-  workoutMonthsYears.forEach(element => {
-  if (countMap[element] === undefined) {
-    countMap[element] = 1;
-  } else {
-    countMap[element] += 1;
-  }
+  workoutMonth.forEach(element => {
+  workoutCountMap[element] = (workoutCountMap[element] || 0) + 1;
   });
 
   let pushMnthYr: string[] = []
   let pullMnthYr: string[] = []
   let legMnthYr: string[] = []
   let otherMnthYr: string[] = []
+
   let pushMnthYrMap: Record<string, number> =  {};
   let pullMnthYrMap: Record<string, number> =  {};
   let legMnthYrMap: Record<string, number> =  {};
   let otherMnthYrMap: Record<string, number> =  {};
 
-  workout.map( row => {
+  const categoryMap: Record<string, string[]> = {
+  push: ["push", "chest"],
+  pull: ["pull", "back"],
+  leg: ["lower", "leg"]
+};
+
+  workout.forEach( row => {
     const value = row.date.slice(0, 7)
-    if (row.name.includes("Push") || row.name.includes("Chest")) {
+    const name = row.name.toLowerCase();
+
+    if (categoryMap.push.some(keyword => name.includes(keyword))) {
       pushMnthYr.push(value)
-    } else if (row.name.includes("Pull") || row.name.includes("Back")) {
+    } else if (categoryMap.pull.some(keyword => name.includes(keyword))) {
       pullMnthYr.push(value)
-    } else if (row.name.includes("Lower") || row.name.includes("Leg")) {
+    } else if (categoryMap.leg.some(keyword => name.includes(keyword))) {
       legMnthYr.push(value)
     } else {
       otherMnthYr.push(value)
@@ -68,41 +68,22 @@ async function graphWorkouts(workout: Array<Workout>) {
   })
 
   pushMnthYr.forEach(element => {
-  if (pushMnthYrMap[element] === undefined) {
-    pushMnthYrMap[element] = 1;
-  } else {
-    pushMnthYrMap[element] += 1;
-  }
-  });
+    pushMnthYrMap[element] = (pushMnthYrMap[element] || 0) + 1
+  })
 
   pullMnthYr.forEach(element => {
-  if (pullMnthYrMap[element] === undefined) {
-    pullMnthYrMap[element] = 1;
-  } else {
-    pullMnthYrMap[element] += 1;
-  }
-  });
+    pullMnthYrMap[element] = (pullMnthYrMap[element] || 0) + 1
+  })
 
   legMnthYr.forEach(element => {
-  if (legMnthYrMap[element] === undefined) {
-    legMnthYrMap[element] = 1;
-  } else {
-    legMnthYrMap[element] += 1;
-  }
-  });
+    legMnthYrMap[element] = (legMnthYrMap[element] || 0) + 1
+  })
 
   otherMnthYr.forEach(element => {
-  if (otherMnthYrMap[element] === undefined) {
-    otherMnthYrMap[element] = 1;
-  } else {
-    otherMnthYrMap[element] += 1;
-  }
-  });
+    otherMnthYrMap[element] = (otherMnthYrMap[element] || 0) + 1
+  })
 
-  let labels = Object.keys(countMap).sort()
-
-  console.log(countMap)
-  console.log(labels)
+  let labels = Object.keys(workoutCountMap).sort()
 
   new Chart(
     document.getElementById('chart1') as ChartItem,
@@ -113,7 +94,7 @@ async function graphWorkouts(workout: Array<Workout>) {
         datasets: [
           {
             label: 'workouts',
-            data: labels.map(label => countMap[label] ?? 0)
+            data: labels.map(label => workoutCountMap[label] ?? 0)
           }
         ]
       },
