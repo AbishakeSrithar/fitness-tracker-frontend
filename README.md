@@ -1,24 +1,22 @@
-# fitness-tracker-frontend
-
-![alt text](ScreenshotFitnessTracker.png)
-
 # **Fitness Tracker Frontend**
+
+![alt text](img.png)
 
 ## Motivation
 The idea of this project was to make a basic CRUD Application from scratch that connects Frontend/Backend using some of the tools I wanted to learn more about:
 - Frontend
-    - Typescript
-    - HTML
-    - CSS
-    - Chartjs
+  - Typescript
+  - HTML
+  - CSS
+  - Chartjs
 
 - Backend
-    - Kotlin
-    - Springboot
-    - Flyway
-    - PostgreSQL
-    - Docker
-    - Shell Scripts
+  - Kotlin
+  - Springboot
+  - Flyway
+  - PostgreSQL
+  - Docker
+  - Shell Scripts
 
 I chose a Fitness Tracker because my current app charges money to Graph my lifts and I thought it would be fun to try do that myself. 
 
