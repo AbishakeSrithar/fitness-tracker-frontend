@@ -6,6 +6,7 @@
 The idea of this project was to make a basic CRUD Application from scratch that connects Frontend/Backend using some of the tools I wanted to learn more about:
 - Frontend
   - Typescript
+  - Vite
   - HTML
   - CSS
   - Chartjs
